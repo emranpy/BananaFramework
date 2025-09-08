@@ -7,10 +7,17 @@
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
     <projectFiles>
-        <directory name="src" />
+        <!-- Analyze the whole project except vendor -->
+        <directory name="." />
         <ignoreFiles>
             <directory name="vendor" />
             <directory name="tests" />
         </ignoreFiles>
     </projectFiles>
+
+
+    <issueHandlers>
+    <InternalMethod severity="suppress"/>
+</issueHandlers>
+
 </psalm>

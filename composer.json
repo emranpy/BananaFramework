@@ -1,14 +1,14 @@
 {
-    "name": "phpfox/framework",
-    "description": "A simple PHP micro-framework",
+    "name": "bananframework/framework",
+    "description": "A PHP micro-framework",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "role": "Developer",
-            "name": "Steve McDougall",
-            "email": "juststevemcd@gmail.com",
-            "homepage": "https://www.juststeveking.uk/"
+            "name": "Emran widad",
+            "email": "emranwidad91@gmail.com",
+            "homepage": "https://emrans.me/"
         }
     ],
     "autoload": {
@@ -27,8 +27,8 @@
         "php": "^8.0"
     },
     "require-dev": {
-        "pestphp/pest": "^1.4",
-        "vimeo/psalm": "^4.7"
+        "pestphp/pest": "^2.0",
+        "vimeo/psalm": "^5.13"
     },
     "scripts": {
         "analyze": "./vendor/bin/psalm",
@@ -42,6 +42,9 @@
     },
     "config": {
         "optimize-autoloader": true,
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }
