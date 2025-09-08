@@ -1,4 +1,4 @@
-# PHP-Fox Framework
+PHP BananaFramework
 
 This is the repository for the PHP-Fox framework.
 
