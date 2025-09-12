@@ -1,34 +1,40 @@
 {
-    "name": "bananframework/framework",
+    "name": "bananaframework/framework",
     "description": "A PHP micro-framework",
     "type": "library",
     "license": "MIT",
+    "version": "0.1.0",
     "authors": [
         {
             "role": "Developer",
-            "name": "Emran widad",
+            "name": "Emran Widad",
             "email": "emranwidad91@gmail.com",
             "homepage": "https://emrans.me/"
         }
     ],
     "autoload": {
         "psr-4": {
-            "PHPFox\\": "src/"
+            "BananaFramework\\": "src/"
         }
     },
+
     "autoload-dev": {
         "psr-4": {
-            "PHPFox\\Tests\\": "tests/"
+            "BananaFramework\\Tests\\": "tests/"
         }
     },
+
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^8.0"
+        "php": "^8.2",
+        "juststeveking/config": "^2.0",
+        "spatie/ray": "^1.42"
     },
     "require-dev": {
-        "pestphp/pest": "^2.0",
-        "vimeo/psalm": "^5.13"
+        "pestphp/pest": "^3.11",
+        "symfony/var-dumper": "^7.3",
+        "vimeo/psalm": "^6.0"
     },
     "scripts": {
         "analyze": "./vendor/bin/psalm",
@@ -37,8 +43,8 @@
     },
     "scripts-descriptions": {
         "analyze": "Run psalm static analysis on project.",
-        "test": "Run pestPHP test suite on project.",
-        "test-coverage": "Run pestPHP test suite with coverage report on project."
+        "test": "Run Pest test suite on project.",
+        "test-coverage": "Run Pest test suite with coverage report."
     },
     "config": {
         "optimize-autoloader": true,
@@ -47,4 +53,5 @@
             "pestphp/pest-plugin": true
         }
     }
+    
 }
