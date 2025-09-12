@@ -1,9 +1,13 @@
-PHP BananaFramework
+# BananaFramework 🍌
 
-This is the repository for the PHP-Fox framework.
+A lightweight PHP micro-framework for building fast, modern applications.
 
+## 🚀 Features
+- Simple configuration
+- Application container
+- Built-in testing support
+- Extendable and modular
 
-## Installation
-
-You should use one of the framework templates instead of installing this package, however if you want to create your own template - please follow these instructions:
-
+## 📦 Installation
+```bash
+composer require emranpy/banana-framework
