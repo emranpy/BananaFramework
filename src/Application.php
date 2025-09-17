@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace BananaFramework;
 
 use BananaFramework\Exception\LoadingConfigError;
-use JustSteveKing\Config\Repository;
+use BananaFramework\Config\Repository;
 
 class Application
 {

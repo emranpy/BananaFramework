@@ -28,15 +28,15 @@
     "prefer-stable": true,
     "require": {
         "php": "^8.2",
-        "juststeveking/config": "^2.0",
-        "minicli/minicli": "^4.2",
-        "spatie/ray": "^1.42"
+        "minicli/minicli": "^4.2"
     },
+
     "require-dev": {
         "pestphp/pest": "^3.11",
         "symfony/var-dumper": "^7.3",
         "vimeo/psalm": "^6.0"
     },
+
     "scripts": {
         "analyze": "./vendor/bin/psalm",
         "test": "./vendor/bin/pest",

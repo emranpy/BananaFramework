@@ -5,7 +5,7 @@
 namespace BananaFramework\Tests;
 
 use BananaFramework\Application;
-use JustSteveKing\Config\Repository;
+use BananaFramework\Config\Repository;
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertInstanceOf;
 use function PHPUnit\Framework\assertTrue;
