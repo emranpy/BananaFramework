@@ -10,6 +10,7 @@ use JustSteveKing\Config\Repository;
 class Application
 {
 
+
     private static Application $instance;
     private bool $booted = false;
 
@@ -86,3 +87,5 @@ class Application
 
 
 $app = Application::boot(__DIR__ . "/../");
+
+

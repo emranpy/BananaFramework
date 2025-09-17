@@ -1,0 +1,1 @@
+{"version":"pest_3.8.4","defects":[],"times":{"P\\Tests\\ApplicationTest::__pest_evaluable_it_check_instance_of_class":1.791,"P\\Tests\\ApplicationTest::__pest_evaluable_it_check_singleton":0.075,"P\\Tests\\ApplicationTest::__pest_evaluable_it_check_if_it_s_allways_booted_":0.052,"P\\Tests\\ApplicationTest::__pest_evaluable_it_check_if_it_load_init_config":0.008}}

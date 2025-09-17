@@ -1,0 +1,26 @@
+#!/usr/bin/php
+<?php
+
+$icon = require __DIR__ . "/bootstrap/icon.php";
+
+if (php_sapi_name() !== 'cli') {
+    exit;
+}
+
+require __DIR__ . '/vendor/autoload.php';
+
+use Minicli\App;
+use Minicli\Exception\CommandNotFoundException;
+
+$app = new App(
+    config:[
+        'app_path' => __DIR__ . "/src/Command"
+    ]
+);
+$app->setSignature($icon);
+
+try {
+    $app->runCommand($argv);
+} catch (CommandNotFoundException $e) {
+    echo 'An error occurred running the command: ',  $e->getMessage(), "\n";
+}

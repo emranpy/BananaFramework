@@ -29,6 +29,7 @@
     "require": {
         "php": "^8.2",
         "juststeveking/config": "^2.0",
+        "minicli/minicli": "^4.2",
         "spatie/ray": "^1.42"
     },
     "require-dev": {

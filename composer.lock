@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "593a21ffcb7eb8e5c2da4a290389a9db",
+    "content-hash": "a67bd18b8df2c9015f773ba9baa83405",
     "packages": [
         {
             "name": "brick/math",
@@ -120,6 +120,61 @@
                 }
             ],
             "time": "2021-02-18T21:57:11+00:00"
+        },
+        {
+            "name": "minicli/minicli",
+            "version": "4.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/minicli/minicli.git",
+                "reference": "81f96caba0c45a29f41b2ac7f17a3f70d8a10893"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/minicli/minicli/zipball/81f96caba0c45a29f41b2ac7f17a3f70d8a10893",
+                "reference": "81f96caba0c45a29f41b2ac7f17a3f70d8a10893",
+                "shasum": ""
+            },
+            "require": {
+                "ext-readline": "*",
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.18",
+                "mockery/mockery": "^1.6",
+                "pestphp/pest": "^3.2",
+                "phpstan/phpstan": "^1.12"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Minicli\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Experimental micro CLI framework for PHP",
+            "homepage": "https://github.com/minicli/minicli",
+            "keywords": [
+                "cli",
+                "command-line"
+            ],
+            "support": {
+                "issues": "https://github.com/minicli/minicli/issues",
+                "source": "https://github.com/minicli/minicli/tree/4.2.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/erikaheidi",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-04-08T18:57:53+00:00"
         },
         {
             "name": "psr/container",
