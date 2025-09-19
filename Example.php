@@ -3,10 +3,8 @@
 
 require "vendor/autoload.php";
 
-$app = BananaFramework\Application::boot(
-    basePath: __DIR__. "/"
+$yaml = BananaFramework\Parsers\OpenApiParser::parse(
+    file: __DIR__ . '/openapi.yml',
+    keyToReturn: 'paths'
 );
 
-
-
-print_r($app->config()->get(key:'app.name'));

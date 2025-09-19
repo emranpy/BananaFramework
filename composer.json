@@ -28,11 +28,14 @@
     "prefer-stable": true,
     "require": {
         "php": "^8.2",
-        "minicli/minicli": "^4.2"
+        "minicli/minicli": "^4.2",
+        "symfony/filesystem": "^7.3",
+        "symfony/yaml": "^7.3"
     },
 
     "require-dev": {
         "pestphp/pest": "^3.11",
+        "psy/psysh": "^0.12.10",
         "symfony/var-dumper": "^7.3",
         "vimeo/psalm": "^6.0"
     },

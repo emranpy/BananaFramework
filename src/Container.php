@@ -10,8 +10,9 @@ use ReflectionException;
 use ReflectionNamedType;
 use Closure;
 
-class Container {
-     /**
+class Container
+{
+    /**
      * The Container Instance
      *
      * @var Container|null
@@ -43,7 +44,9 @@ class Container {
      *
      * @return void
      */
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     /**
      * Get an Instance of the Container, or create a new instance

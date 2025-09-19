@@ -43,7 +43,7 @@ class Repository implements ArrayAccess
     {
         $keys = (array) $keys;
 
-        if ( empty($this->items) || empty($keys)) {
+        if (empty($this->items) || empty($keys)) {
             return false;
         }
 
@@ -135,7 +135,7 @@ class Repository implements ArrayAccess
      * @param string $key
      * @return bool
      */
-    public function offsetExists($key):bool
+    public function offsetExists($key): bool
     {
         return $this->has($key);
     }
@@ -146,7 +146,7 @@ class Repository implements ArrayAccess
      * @param string $key
      * @return array|mixed
      */
-    public function offsetGet($key):mixed
+    public function offsetGet($key): mixed
     {
         return $this->get($key);
     }
@@ -159,7 +159,7 @@ class Repository implements ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($key, $value):void
+    public function offsetSet($key, $value): void
     {
         $this->set($key, $value);
     }
@@ -170,7 +170,7 @@ class Repository implements ArrayAccess
      * @param string $key
      * @return void
      */
-    public function offsetUnset($key):void
+    public function offsetUnset($key): void
     {
         $this->set($key, null);
     }

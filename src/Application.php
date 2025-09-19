@@ -17,15 +17,16 @@ class Application
     private Repository $config;
 
     private function __construct(
-        private string $basePath)
-    {}
+        private string $basePath
+    ) {
+    }
 
     public static function boot(string $basePath): Application
     {
-        if (!isset(Application::$instance)) 
-        {
+        if (!isset(Application::$instance)) {
             Application::$instance = new static(
-                basePath: $basePath);
+                basePath: $basePath
+            );
         }
 
         $app = static::$instance;
@@ -63,7 +64,7 @@ class Application
         );
     }
 
-    public function config():Repository 
+    public function config(): Repository
     {
         return $this->config;
     }
