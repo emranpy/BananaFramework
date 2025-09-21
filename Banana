@@ -3,6 +3,8 @@
 
 $icon = require __DIR__ . "/bootstrap/icon.php";
 
+CONST BASE_DIR = __DIR__  . '/';
+
 if (php_sapi_name() !== 'cli') {
     exit;
 }

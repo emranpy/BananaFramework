@@ -2,12 +2,10 @@
 
 namespace BananaFramework\Parsers;
 
-
-use BananaFramework\Helper\Helper;
 use BananaFramework\Parsers\JsonParser;
 use BananaFramework\Parsers\YamlParser;
 use Exception;
-use Symfony\Component\VarDumper\VarDumper;
+
 
 class OpenApiParser
 {
@@ -40,7 +38,10 @@ class OpenApiParser
                 }
             }
         }
+
+        return $routes;
     }
+
     /**
      * Summary of parse
      * @param string $file_path -   full path c/project/openApi.yaml ..
@@ -51,24 +52,25 @@ class OpenApiParser
 
     public static function getPath(string $file_path, $keyToReturn): array
     {
-        //file extensions
+        //file infos
         $file = pathinfo($file_path);
         $file_extension = $file['extension'];
         $file_name = $file['basename'];
 
 
-        switch ($file_extension) {
-            case "json":
-                return JsonParser::parse($file_path, $keyToReturn);
+        // auto detect parsing file eg .. json ... yaml.. yml
+        $result = match($file_extension) {
+            "json" => fn() => JsonParser::parse($file_path, $keyToReturn),
+            "yaml", "yml" => fn() => YamlParser::parse($file_path, $keyToReturn),
+            default => fn() => throw new Exception(
+                message: "Unsupported file Extension [$file_name]"
+            )
+        };
 
-            case "yml":
-                return YamlParser::parse($file_path, $keyToReturn);
-
-            default:
-                throw new Exception(
-                    message: "Unsupported file Extension [$file_name]"
-                );
-        }
+        return $result();
     }
+
 }
+
+
 
