@@ -39,11 +39,6 @@ class DefaultController extends CommandController
 
         // Create a new Filesystem instance with that adapter
 
-
-
-        $this->tempRoute();
-
-
         //check file existance in the given dir
         $exist = static::filesystem()->has(
             'routes/' . 'api.php'
@@ -64,11 +59,8 @@ class DefaultController extends CommandController
 
             declare(strict_types=1);
 
-            [];
-
-                
+            []; 
             EOD;
-
 
             fwrite($resource, $content);
             rewind($resource);
@@ -81,23 +73,14 @@ class DefaultController extends CommandController
             fclose($resource);
         }
 
-    }
 
-    private function tempRoute()
-    {
-        //$resource = fopen('php://memory', 'r+');
+        //get template from stubs...
+        $stub = static::filesystem()->read(
+            location:  'Stubs/api.stub'
+        );
 
-        //content to be append to api.php
-        $routes = "";
+        VarDumper::dump($stub);
 
-        foreach ($this->routes as $key => $value) {
-            var_dump($value['methods']);
-        }
-
-        // $this->filesystem->writeSteam(
-        //     Location: 'routes/api.php',
-        //     contenets: 
-        // )
     }
 
     private function setFile(): void
@@ -117,4 +100,12 @@ class DefaultController extends CommandController
             new LocalFilesystemAdapter(BASE_DIR));
     }
 
+
+
 }
+
+
+
+
+
+

@@ -45,3 +45,4 @@ it("check if it load init config", function() {
         actual: $this->app->config()
     );
 });
+

@@ -18,8 +18,7 @@ class Application
 
     private function __construct(
         private string $basePath
-    ) {
-    }
+    ) {}
 
     public static function boot(string $basePath): Application
     {
@@ -85,7 +84,6 @@ class Application
     }
 
 }
-
 
 $app = Application::boot(__DIR__ . "/../");
 
