@@ -10,4 +10,3 @@ $yaml = BananaFramework\Parsers\OpenApiParser::parse(
     keyToReturn: 'paths'
 );
 
-

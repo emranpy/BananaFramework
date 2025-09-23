@@ -6,6 +6,7 @@ namespace BananaFramework;
 
 use BananaFramework\Exception\LoadingConfigError;
 use BananaFramework\Config\Repository;
+use BananaFramework\Router\Factory\RouterFactory;
 
 class Application
 {
@@ -80,7 +81,8 @@ class Application
 
     public static function run()
     {
-
+        $router = RouterFactory::build();
+           
     }
 
 }

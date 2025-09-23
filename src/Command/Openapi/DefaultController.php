@@ -79,7 +79,7 @@ class DefaultController extends CommandController
             location:  'Stubs/api.stub'
         );
 
-        VarDumper::dump($stub);
+
 
     }
 
