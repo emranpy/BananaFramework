@@ -1,12 +1,12 @@
 <?php
 
-use Minicli\Input;
-
+use BananaFramework\Application;
 
 require "vendor/autoload.php";
 
-$yaml = BananaFramework\Parsers\OpenApiParser::parse(
-    file: __DIR__ . '/openapi.yml',
-    keyToReturn: 'paths'
+
+$app = Application::boot(
+    basePath: __DIR__  . '/'
 );
 
+$app->run();

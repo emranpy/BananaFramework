@@ -4,69 +4,131 @@ declare(strict_types=1);
 
 namespace BananaFramework;
 
-use BananaFramework\Exception\LoadingConfigError;
+
 use BananaFramework\Config\Repository;
+use BananaFramework\Exception\ConfigLoadingException;
+use Closure;
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\ResponseFactory;
+use Laminas\Diactoros\ServerRequestFactory;
+use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
+use League\Route\Router;
+use League\Route\Strategy\JsonStrategy;
 use BananaFramework\Router\Factory\RouterFactory;
+use Throwable;
+
 
 class Application
 {
-
-
     private static Application $instance;
-    private bool $booted = false;
-
     private Repository $config;
 
+    private Router $router;
+
     private function __construct(
-        private string $basePath
+        private string $basePath,
+        private Container $container,
+        private bool $booted = false,
     ) {}
 
     public static function boot(string $basePath): Application
     {
-        if (!isset(Application::$instance)) {
-            Application::$instance = new static(
-                basePath: $basePath
+        if (! isset(static::$instance)) {
+            static::$instance = new static(
+                basePath: $basePath,
+                container: Container::getInstance(),
             );
         }
 
         $app = static::$instance;
-        $app->loadConfig();
-        $app->booted = true;
-        return $app;
 
+        // load all the things
+        $app->router = RouterFactory::build();
+        $app->router->setStrategy(
+            strategy: new JsonStrategy(
+                responseFactory: new ResponseFactory(),
+            ),
+        );
+
+        $app->loadConfig();
+        $app->loadRoutes();
+        $app->buildContainer();
+
+        $app->booted = true;
+
+        return $app;
     }
 
+    /**
+     * @throws ConfigLoadingException
+     */
     public function loadConfig(): void
     {
-        $configPath = $this->basePath . 'config/';
+        $files = glob($this->basePath() . 'config/*.php');
 
-        if (!is_dir($configPath)) {
-            throw new LoadingConfigError(
-                message: "Config folder missing at: {$configPath}"
+        if (empty($files)) {
+            throw new ConfigLoadingException(
+                message: "Could not load config files from [$this->basePath]config/, please ensure they exist."
             );
         }
 
-        $files = scandir($configPath);
-        $files = array_diff($files, ['.', '..']);
-
         $config = [];
-        foreach ($files as $file) {
-            $fullPath = $configPath . $file;
 
-            if (is_file($fullPath) && pathinfo($fullPath, PATHINFO_EXTENSION) === 'php') {
-                $configName = pathinfo($fullPath, PATHINFO_FILENAME);
-                $config[$configName] = require $fullPath;
-            }
+        foreach ($files as $file) {
+            $info = pathinfo(
+                path: $file,
+            );
+
+            $config[$info['filename']] = require $file;
         }
 
         $this->config = Repository::build(
-            items: $config
+            items: $config,
         );
     }
 
-    public function config(): Repository
+    public function loadRoutes(): void
     {
-        return $this->config;
+        $routes = require $this->basePath . 'routes/api.php';
+
+        array_map(function ($route) {
+            $this->map(
+                method: $route['method'],
+                path: $route['route'],
+                handler: $route['handler'],
+                middleware: $route['middleware']
+            );
+        }, $routes);
+    }
+
+    public function map(string $method, string $path, Closure|string $handler, array $middleware = []): void
+    {
+        $route = $this->router->map(
+            method: strtoupper($method),
+            path: $path,
+            handler: $handler,
+        );
+
+        if (! empty($middleware)) {
+            foreach ($middleware as $callable) {
+                $route->middleware(
+                    middleware: $callable,
+                );
+            }
+        }
+    }
+
+    public function buildContainer(): void
+    {
+        /**
+         * @var Container
+         */
+        $container = $this->container();
+
+        $container->bind(
+            abstract: 'emitter',
+            concrete: SapiEmitter::class,
+        );
     }
 
     public function basePath(): string
@@ -74,19 +136,66 @@ class Application
         return $this->basePath;
     }
 
+    public function config(): Repository
+    {
+        return $this->config;
+    }
+
+    public function container(): Container
+    {
+        return $this->container;
+    }
+
     public function isBooted(): bool
     {
         return $this->booted;
     }
 
-    public static function run()
+    public function run(): void
     {
-        $router = RouterFactory::build();
-           
+        $request = ServerRequestFactory::fromGlobals(
+            server: $_SERVER,
+            files: $_FILES,
+            body: $_POST,
+            cookies: $_COOKIE,
+            query: $_GET,
+        );
+
+        // application middleware
+
+        try {
+            $response = $this->router->dispatch(
+                request: $request,
+            );
+        } catch (Throwable $exception) {
+            $response = new Response();
+            $response->withAddedHeader(
+                name: 'Content-Type',
+                value: 'application/api.problem+json'
+            );
+            $response->getBody()->write(
+                string: json_encode([
+                    'code' => $exception->getCode(),
+                    'message' => $exception->getMessage(),
+                ]),
+            );
+            $response->withStatus(
+                code: 500,
+            );
+        }
+
+        /**
+         * @var SapiEmitter
+         */
+        $emitter = $this->container()->make(
+            abstract: 'emitter',
+        );
+
+        $emitter->emit(
+            response: $response,
+        );
     }
-
 }
-
 $app = Application::boot(__DIR__ . "/../");
 
 

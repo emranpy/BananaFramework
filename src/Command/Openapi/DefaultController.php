@@ -7,7 +7,6 @@ use InvalidArgumentException;
 use Minicli\Command\CommandController;
 use \League\Flysystem\Local\LocalFilesystemAdapter;
 use \League\Flysystem\Filesystem;
-use Symfony\Component\VarDumper\VarDumper;
 
 
 class DefaultController extends CommandController
@@ -50,7 +49,6 @@ class DefaultController extends CommandController
 
             $resource = fopen('php://memory', 'r+');
 
-
             //content to be append to api.php
             $content = <<<EOD
             <?php
@@ -73,13 +71,10 @@ class DefaultController extends CommandController
             fclose($resource);
         }
 
-
         //get template from stubs...
         $stub = static::filesystem()->read(
-            location:  'Stubs/api.stub'
+            location: 'Stubs/api.stub'
         );
-
-
 
     }
 
@@ -95,9 +90,11 @@ class DefaultController extends CommandController
         }
     }
 
-    private static function filesystem() {
+    private static function filesystem()
+    {
         return new Filesystem(
-            new LocalFilesystemAdapter(BASE_DIR));
+            new LocalFilesystemAdapter(BASE_DIR)
+        );
     }
 
 
